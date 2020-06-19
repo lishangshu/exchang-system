@@ -17,13 +17,13 @@ Using smart contract to achieve business or transaction automatically and reduce
 ## Project Structure
  This project can be divided into java microservices（contains The registry,[customer-center] user center service,[web-server] front service,[bridge] an intermediate service that connects to a blockchain network），html5 web pages，FISCO-BCOS blockchain and smart contracts，The required components are mysql, Redis and so on。
 ## Quick Start
-	1、Deploy the FISco-BCOS blockchain network，please move to code details->[here] (https://github.com/FISCO-BCOS/FISCO-BCOS),ensure the block chain network smooth and consensus，and refer to the fisco-BCOS official document for details.
-	2、Instead of trying to keep down what would normally be the cost of deploying a business-related intelligent contract,Please move to the solidity official document->[here](https://solidity.readthedocs.io/en/latest/)，Generate the corresponding Java smart contract.
-	3、Compile and package the above Java project, deploy the registry midline first, and then deploy the remaining Java projects in turn.
-	4、Configure install nginx configure vue code to complete deployment.
+1、Deploy the FISCO-BCOS blockchain network，please move to code details -->[FISCO-BCOS](https://github.com/FISCO-BCOS/FISCO-BCOS).ensure the block chain network smooth and consensus，and refer to the FISCO-BCOS official document for details.
+2、Instead of trying to keep down what would normally be the cost of deploying a business-related intelligent contract,Please move to the solidity official document -->[Solidity](https://solidity.readthedocs.io/en/latest/)，Generate the corresponding Java smart contract.
+3、Compile and package the above Java project, deploy the registry midline first, and then deploy the remaining Java projects in turn.
+4、Configure install nginx configure vue code to complete deployment.
 ## Landing application
-	-Domain Name Information Exchange System, Access address [Exchange System]，Access to the address[here](http://idataexp.fuxitechnology.com)
+- Domain Name Information Exchange System, Access address --> [Exchange System](http://idataexp.fuxitechnology.com)
 ## Contribute code
-	-Welcome all the ambitious people to participate, contribute their own strength，please star us!
+- Welcome all the ambitious people to participate, contribute their own strength，please star us!
 ## License
-  All contributions are made under the [GNU General Public License v3](https://www.gnu.org/licenses/gpl-3.0.en.html). See [LICENSE](LICENSE).
+ All contributions are made under the [GNU General Public License v3](https://www.gnu.org/licenses/gpl-3.0.en.html). See [LICENSE](LICENSE).
