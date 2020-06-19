@@ -2,7 +2,7 @@ const errorPage = {
   path: '',
   name: 'error-page',
   meta: {
-    title: '秀川结算中心-综合服务平台',
+    title: '互联网数据交换平台',
     name: '',
     code: ''
   },
@@ -12,7 +12,7 @@ const errorPage = {
         path: '403',
         name: 'page-403',
         meta: {
-            title: '秀川结算中心-综合服务平台',
+            title: '互联网数据交换平台',
             name: '',
             code: ''
         },
@@ -22,7 +22,7 @@ const errorPage = {
         path: '502',
         name: 'page-502',
         meta: {
-            title: '秀川结算中心-综合服务平台',
+            title: '互联网数据交换平台',
             name: '',
             code: ''
         },
@@ -32,7 +32,7 @@ const errorPage = {
         path: '404',
         name: 'page-404',
         meta: {
-          title: '秀川结算中心-综合服务平台',
+          title: '互联网数据交换平台',
           name: '',
           code: ''
         },
