@@ -1,0 +1,84 @@
+//登录注册box
+.login-wrapper{
+    background: url(../assets/images/login-bg.png) no-repeat;
+    background-size:100% 100%;  
+    width: 100%;
+    height: 100%;
+    .login-box{
+        min-width: 436px;
+        width: 29%;
+        height: 450px;
+        background: white;
+        box-shadow:0px 19px 26px 0px rgba(0,40,119,0.26);
+        border-radius:8px;
+        margin: 0 auto;
+        position: relative;
+        top:12%;
+        .login-content{
+            padding: 60px 59px 0 59px;
+            box-sizing: border-box;
+            .login-title{
+                width:80px;
+                height:22px;
+                font-size:16px;
+                font-weight:400;
+                color:rgba(0,0,0,1);
+                line-height:22px;
+                margin-bottom: 25px;
+            }
+            .count-down{
+                position: absolute;
+                right: 0;
+                padding-right:28px;
+                height: 42px;
+                line-height: 42px;
+                font-size:14px;
+                font-weight:400;
+                color:rgba(0,124,250,1);
+                cursor: pointer;
+            }
+        }
+    }
+}
+.login-wrapper .ivu-row,.ivu-col{
+    height: 100%;
+}
+
+.login-wrapper .ivu-input{
+    height: 42px;
+    font-size: 14px;
+    border: 1px solid #D7DDE4;
+}
+.login-wrapper .ivu-input::placeholder{
+    color: #9EA7B4;
+}
+
+.login-button{
+    width: 156px;
+    height:42px;
+    font-size:14px;
+}
+.login-wrapper .ivu-icon-logo-usd:before{
+    content:"86"; 
+    width:60px;
+    height:42px;
+    font-size:14px;
+    font-weight:400;
+    color:rgba(0,0,0,1);
+    line-height:42px;
+    border-right: 1px solid rgba(203,203,203,1);;
+    padding-right: 10px;
+    padding-left: 18px;
+}
+.login-wrapper .login-phone .ivu-input{
+    padding-left: 60px;
+}
+.login-wrapper .login-reg{
+    width:72px;
+    height:17px;
+    font-size:15px;
+    font-weight:400;
+    color:rgba(0,124,250,1);
+    line-height:17px;
+    margin-bottom: 33px;
+}
