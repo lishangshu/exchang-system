@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fuxi.bridge.dao.TransactionLogMapper" >
+  <resultMap id="BaseResultMap" type="com.fuxi.bridge.entity.TransactionLog" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="block_hash" property="blockHash" jdbcType="VARCHAR" />
+    <result column="block_number" property="blockNumber" jdbcType="INTEGER" />
+    <result column="log_index" property="logIndex" jdbcType="BIGINT" />
+    <result column="removed" property="removed" jdbcType="BIT" />
+    <result column="transaction_hash" property="transactionHash" jdbcType="VARCHAR" />
+    <result column="transaction_index" property="transactionIndex" jdbcType="INTEGER" />
+    <result column="event_in_address" property="eventInAddress" jdbcType="VARCHAR" />
+    <result column="event_out_address" property="eventOutAddress" jdbcType="VARCHAR" />
+    <result column="event_amount" property="eventAmount" jdbcType="DECIMAL" />
+    <result column="event_message" property="eventMessage" jdbcType="VARCHAR" />
+    <result column="event_timestamp" property="eventTimestamp" jdbcType="TIMESTAMP" />
+    <result column="event_timestampV" property="eventTimestampv" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.fuxi.bridge.entity.TransactionLog" extends="BaseResultMap" >
+    <result column="data" property="data" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, address, block_hash, block_number, log_index, removed, transaction_hash, transaction_index, 
+    event_in_address, event_out_address, event_amount, event_message, event_timestamp, 
+    event_timestampV, create_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    data
+  </sql>
+  <sql id="MainElem_Column_list">
+      id,block_hash,block_number,transaction_hash,transaction_index,event_in_address,event_out_address,event_amount,event_timestamp,
+      create_time
+  </sql>
+
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.fuxi.bridge.entity.TransactionLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from transaction_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.fuxi.bridge.entity.TransactionLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from transaction_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from transaction_log
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from transaction_log
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.fuxi.bridge.entity.TransactionLog" >
+    insert into transaction_log (id, address, block_hash, 
+      block_number, log_index, removed, 
+      transaction_hash, transaction_index, event_in_address, 
+      event_out_address, event_amount, event_message, 
+      event_timestamp, event_timestampV, create_time, 
+      data)
+    values (#{id,jdbcType=BIGINT}, #{address,jdbcType=VARCHAR}, #{blockHash,jdbcType=VARCHAR}, 
+      #{blockNumber,jdbcType=INTEGER}, #{logIndex,jdbcType=BIGINT}, #{removed,jdbcType=BIT}, 
+      #{transactionHash,jdbcType=VARCHAR}, #{transactionIndex,jdbcType=INTEGER}, #{eventInAddress,jdbcType=VARCHAR}, 
+      #{eventOutAddress,jdbcType=VARCHAR}, #{eventAmount,jdbcType=DECIMAL}, #{eventMessage,jdbcType=VARCHAR}, 
+      #{eventTimestamp,jdbcType=TIMESTAMP}, #{eventTimestampv,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{data,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fuxi.bridge.entity.TransactionLog" >
+    insert into transaction_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="blockHash != null" >
+        block_hash,
+      </if>
+      <if test="blockNumber != null" >
+        block_number,
+      </if>
+      <if test="logIndex != null" >
+        log_index,
+      </if>
+      <if test="removed != null" >
+        removed,
+      </if>
+      <if test="transactionHash != null" >
+        transaction_hash,
+      </if>
+      <if test="transactionIndex != null" >
+        transaction_index,
+      </if>
+      <if test="eventInAddress != null" >
+        event_in_address,
+      </if>
+      <if test="eventOutAddress != null" >
+        event_out_address,
+      </if>
+      <if test="eventAmount != null" >
+        event_amount,
+      </if>
+      <if test="eventMessage != null" >
+        event_message,
+      </if>
+      <if test="eventTimestamp != null" >
+        event_timestamp,
+      </if>
+      <if test="eventTimestampv != null" >
+        event_timestampV,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="data != null" >
+        data,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="blockHash != null" >
+        #{blockHash,jdbcType=VARCHAR},
+      </if>
+      <if test="blockNumber != null" >
+        #{blockNumber,jdbcType=INTEGER},
+      </if>
+      <if test="logIndex != null" >
+        #{logIndex,jdbcType=BIGINT},
+      </if>
+      <if test="removed != null" >
+        #{removed,jdbcType=BIT},
+      </if>
+      <if test="transactionHash != null" >
+        #{transactionHash,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionIndex != null" >
+        #{transactionIndex,jdbcType=INTEGER},
+      </if>
+      <if test="eventInAddress != null" >
+        #{eventInAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="eventOutAddress != null" >
+        #{eventOutAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="eventAmount != null" >
+        #{eventAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="eventMessage != null" >
+        #{eventMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="eventTimestamp != null" >
+        #{eventTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="eventTimestampv != null" >
+        #{eventTimestampv,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="data != null" >
+        #{data,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fuxi.bridge.entity.TransactionLogExample" resultType="java.lang.Integer" >
+    select count(*) from transaction_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update transaction_log
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blockHash != null" >
+        block_hash = #{record.blockHash,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blockNumber != null" >
+        block_number = #{record.blockNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.logIndex != null" >
+        log_index = #{record.logIndex,jdbcType=BIGINT},
+      </if>
+      <if test="record.removed != null" >
+        removed = #{record.removed,jdbcType=BIT},
+      </if>
+      <if test="record.transactionHash != null" >
+        transaction_hash = #{record.transactionHash,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transactionIndex != null" >
+        transaction_index = #{record.transactionIndex,jdbcType=INTEGER},
+      </if>
+      <if test="record.eventInAddress != null" >
+        event_in_address = #{record.eventInAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eventOutAddress != null" >
+        event_out_address = #{record.eventOutAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eventAmount != null" >
+        event_amount = #{record.eventAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.eventMessage != null" >
+        event_message = #{record.eventMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eventTimestamp != null" >
+        event_timestamp = #{record.eventTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.eventTimestampv != null" >
+        event_timestampV = #{record.eventTimestampv,jdbcType=BIGINT},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.data != null" >
+        data = #{record.data,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update transaction_log
+    set id = #{record.id,jdbcType=BIGINT},
+      address = #{record.address,jdbcType=VARCHAR},
+      block_hash = #{record.blockHash,jdbcType=VARCHAR},
+      block_number = #{record.blockNumber,jdbcType=INTEGER},
+      log_index = #{record.logIndex,jdbcType=BIGINT},
+      removed = #{record.removed,jdbcType=BIT},
+      transaction_hash = #{record.transactionHash,jdbcType=VARCHAR},
+      transaction_index = #{record.transactionIndex,jdbcType=INTEGER},
+      event_in_address = #{record.eventInAddress,jdbcType=VARCHAR},
+      event_out_address = #{record.eventOutAddress,jdbcType=VARCHAR},
+      event_amount = #{record.eventAmount,jdbcType=DECIMAL},
+      event_message = #{record.eventMessage,jdbcType=VARCHAR},
+      event_timestamp = #{record.eventTimestamp,jdbcType=TIMESTAMP},
+      event_timestampV = #{record.eventTimestampv,jdbcType=BIGINT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      data = #{record.data,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update transaction_log
+    set id = #{record.id,jdbcType=BIGINT},
+      address = #{record.address,jdbcType=VARCHAR},
+      block_hash = #{record.blockHash,jdbcType=VARCHAR},
+      block_number = #{record.blockNumber,jdbcType=INTEGER},
+      log_index = #{record.logIndex,jdbcType=BIGINT},
+      removed = #{record.removed,jdbcType=BIT},
+      transaction_hash = #{record.transactionHash,jdbcType=VARCHAR},
+      transaction_index = #{record.transactionIndex,jdbcType=INTEGER},
+      event_in_address = #{record.eventInAddress,jdbcType=VARCHAR},
+      event_out_address = #{record.eventOutAddress,jdbcType=VARCHAR},
+      event_amount = #{record.eventAmount,jdbcType=DECIMAL},
+      event_message = #{record.eventMessage,jdbcType=VARCHAR},
+      event_timestamp = #{record.eventTimestamp,jdbcType=TIMESTAMP},
+      event_timestampV = #{record.eventTimestampv,jdbcType=BIGINT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fuxi.bridge.entity.TransactionLog" >
+    update transaction_log
+    <set >
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="blockHash != null" >
+        block_hash = #{blockHash,jdbcType=VARCHAR},
+      </if>
+      <if test="blockNumber != null" >
+        block_number = #{blockNumber,jdbcType=INTEGER},
+      </if>
+      <if test="logIndex != null" >
+        log_index = #{logIndex,jdbcType=BIGINT},
+      </if>
+      <if test="removed != null" >
+        removed = #{removed,jdbcType=BIT},
+      </if>
+      <if test="transactionHash != null" >
+        transaction_hash = #{transactionHash,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionIndex != null" >
+        transaction_index = #{transactionIndex,jdbcType=INTEGER},
+      </if>
+      <if test="eventInAddress != null" >
+        event_in_address = #{eventInAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="eventOutAddress != null" >
+        event_out_address = #{eventOutAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="eventAmount != null" >
+        event_amount = #{eventAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="eventMessage != null" >
+        event_message = #{eventMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="eventTimestamp != null" >
+        event_timestamp = #{eventTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="eventTimestampv != null" >
+        event_timestampV = #{eventTimestampv,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="data != null" >
+        data = #{data,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.fuxi.bridge.entity.TransactionLog" >
+    update transaction_log
+    set address = #{address,jdbcType=VARCHAR},
+      block_hash = #{blockHash,jdbcType=VARCHAR},
+      block_number = #{blockNumber,jdbcType=INTEGER},
+      log_index = #{logIndex,jdbcType=BIGINT},
+      removed = #{removed,jdbcType=BIT},
+      transaction_hash = #{transactionHash,jdbcType=VARCHAR},
+      transaction_index = #{transactionIndex,jdbcType=INTEGER},
+      event_in_address = #{eventInAddress,jdbcType=VARCHAR},
+      event_out_address = #{eventOutAddress,jdbcType=VARCHAR},
+      event_amount = #{eventAmount,jdbcType=DECIMAL},
+      event_message = #{eventMessage,jdbcType=VARCHAR},
+      event_timestamp = #{eventTimestamp,jdbcType=TIMESTAMP},
+      event_timestampV = #{eventTimestampv,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      data = #{data,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fuxi.bridge.entity.TransactionLog" >
+    update transaction_log
+    set address = #{address,jdbcType=VARCHAR},
+      block_hash = #{blockHash,jdbcType=VARCHAR},
+      block_number = #{blockNumber,jdbcType=INTEGER},
+      log_index = #{logIndex,jdbcType=BIGINT},
+      removed = #{removed,jdbcType=BIT},
+      transaction_hash = #{transactionHash,jdbcType=VARCHAR},
+      transaction_index = #{transactionIndex,jdbcType=INTEGER},
+      event_in_address = #{eventInAddress,jdbcType=VARCHAR},
+      event_out_address = #{eventOutAddress,jdbcType=VARCHAR},
+      event_amount = #{eventAmount,jdbcType=DECIMAL},
+      event_message = #{eventMessage,jdbcType=VARCHAR},
+      event_timestamp = #{eventTimestamp,jdbcType=TIMESTAMP},
+      event_timestampV = #{eventTimestampv,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectByMainElem" resultMap="BaseResultMap" parameterType="java.lang.String">
+    SELECT a.* FROM
+    (SELECT
+    <include refid="MainElem_Column_list"/>
+    FROM  transaction_log
+    WHERE event_in_address = #{address,jdbcType=VARCHAR}
+    UNION
+    SELECT
+    <include refid="MainElem_Column_list"/>
+    FROM transaction_log
+    WHERE  event_out_address = #{address,jdbcType=VARCHAR}) AS  a
+--     ORDER  BY  a.event_timestamp DESC
+    ORDER  BY  a.create_time DESC
+  </select>
+</mapper>

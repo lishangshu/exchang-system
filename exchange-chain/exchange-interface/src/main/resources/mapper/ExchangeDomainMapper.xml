@@ -1,0 +1,657 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fuxi.dao.ExchangeDomainMapper" >
+  <resultMap id="BaseResultMap" type="com.fuxi.entity.ExchangeDomain" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="domain" property="domain" jdbcType="VARCHAR" />
+    <result column="domain_hash" property="domainHash" jdbcType="VARCHAR" />
+    <result column="hash_code" property="hashCode" jdbcType="VARCHAR" />
+    <result column="owner" property="owner" jdbcType="VARCHAR" />
+    <result column="position" property="position" jdbcType="VARCHAR" />
+    <result column="mail_address" property="mailAddress" jdbcType="VARCHAR" />
+    <result column="maill_no" property="maillNo" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="contact_phone" property="contactPhone" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="customer_id" property="customerId" jdbcType="BIGINT" />
+    <result column="customer_address" property="customerAddress" jdbcType="VARCHAR" />
+    <result column="content_items" property="contentItems" jdbcType="INTEGER" />
+    <result column="wi_registrar_support" property="wiRegistrarSupport" jdbcType="VARCHAR" />
+    <result column="wi_create_time" property="wiCreateTime" jdbcType="VARCHAR" />
+    <result column="wi_expiration_time" property="wiExpirationTime" jdbcType="VARCHAR" />
+    <result column="wi_server_ip" property="wiServerIp" jdbcType="VARCHAR" />
+    <result column="wi_dns" property="wiDns" jdbcType="VARCHAR" />
+    <result column="logical_del" property="logicalDel" jdbcType="BIT" />
+    <result column="status" property="status" jdbcType="BIT" />
+    <result column="transaction_hash" property="transactionHash" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.fuxi.entity.ExchangeDomain" extends="BaseResultMap" >
+    <result column="dns_parse_record" property="dnsParseRecord" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, domain, domain_hash, hash_code, owner, position, mail_address, maill_no, email, 
+    contact_phone, create_time, update_time, customer_id, customer_address, content_items, 
+    wi_registrar_support, wi_create_time, wi_expiration_time, wi_server_ip, wi_dns, logical_del, 
+    status, transaction_hash
+  </sql>
+  <sql id="Blob_Column_List" >
+    dns_parse_record
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.fuxi.entity.ExchangeDomainExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from exchange_domain
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.fuxi.entity.ExchangeDomainExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from exchange_domain
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from exchange_domain
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from exchange_domain
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.fuxi.entity.ExchangeDomain" >
+    insert into exchange_domain (id, domain, domain_hash, 
+      hash_code, owner, position, 
+      mail_address, maill_no, email, 
+      contact_phone, create_time, update_time, 
+      customer_id, customer_address, content_items, 
+      wi_registrar_support, wi_create_time, wi_expiration_time, 
+      wi_server_ip, wi_dns, logical_del, 
+      status, transaction_hash, dns_parse_record
+      )
+    values (#{id,jdbcType=BIGINT}, #{domain,jdbcType=VARCHAR}, #{domainHash,jdbcType=VARCHAR}, 
+      #{hashCode,jdbcType=VARCHAR}, #{owner,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR}, 
+      #{mailAddress,jdbcType=VARCHAR}, #{maillNo,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{contactPhone,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{customerId,jdbcType=BIGINT}, #{customerAddress,jdbcType=VARCHAR}, #{contentItems,jdbcType=INTEGER}, 
+      #{wiRegistrarSupport,jdbcType=VARCHAR}, #{wiCreateTime,jdbcType=VARCHAR}, #{wiExpirationTime,jdbcType=VARCHAR}, 
+      #{wiServerIp,jdbcType=VARCHAR}, #{wiDns,jdbcType=VARCHAR}, #{logicalDel,jdbcType=BIT}, 
+      #{status,jdbcType=BIT}, #{transactionHash,jdbcType=VARCHAR}, #{dnsParseRecord,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.fuxi.entity.ExchangeDomain"  useGeneratedKeys="true" keyProperty="id">
+    insert into exchange_domain
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="domain != null" >
+        domain,
+      </if>
+      <if test="domainHash != null" >
+        domain_hash,
+      </if>
+      <if test="hashCode != null" >
+        hash_code,
+      </if>
+      <if test="owner != null" >
+        owner,
+      </if>
+      <if test="position != null" >
+        position,
+      </if>
+      <if test="mailAddress != null" >
+        mail_address,
+      </if>
+      <if test="maillNo != null" >
+        maill_no,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="contactPhone != null" >
+        contact_phone,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="customerId != null" >
+        customer_id,
+      </if>
+      <if test="customerAddress != null" >
+        customer_address,
+      </if>
+      <if test="contentItems != null" >
+        content_items,
+      </if>
+      <if test="wiRegistrarSupport != null" >
+        wi_registrar_support,
+      </if>
+      <if test="wiCreateTime != null" >
+        wi_create_time,
+      </if>
+      <if test="wiExpirationTime != null" >
+        wi_expiration_time,
+      </if>
+      <if test="wiServerIp != null" >
+        wi_server_ip,
+      </if>
+      <if test="wiDns != null" >
+        wi_dns,
+      </if>
+      <if test="logicalDel != null" >
+        logical_del,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="transactionHash != null" >
+        transaction_hash,
+      </if>
+      <if test="dnsParseRecord != null" >
+        dns_parse_record,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="domain != null" >
+        #{domain,jdbcType=VARCHAR},
+      </if>
+      <if test="domainHash != null" >
+        #{domainHash,jdbcType=VARCHAR},
+      </if>
+      <if test="hashCode != null" >
+        #{hashCode,jdbcType=VARCHAR},
+      </if>
+      <if test="owner != null" >
+        #{owner,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null" >
+        #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="mailAddress != null" >
+        #{mailAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="maillNo != null" >
+        #{maillNo,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPhone != null" >
+        #{contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customerId != null" >
+        #{customerId,jdbcType=BIGINT},
+      </if>
+      <if test="customerAddress != null" >
+        #{customerAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="contentItems != null" >
+        #{contentItems,jdbcType=INTEGER},
+      </if>
+      <if test="wiRegistrarSupport != null" >
+        #{wiRegistrarSupport,jdbcType=VARCHAR},
+      </if>
+      <if test="wiCreateTime != null" >
+        #{wiCreateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="wiExpirationTime != null" >
+        #{wiExpirationTime,jdbcType=VARCHAR},
+      </if>
+      <if test="wiServerIp != null" >
+        #{wiServerIp,jdbcType=VARCHAR},
+      </if>
+      <if test="wiDns != null" >
+        #{wiDns,jdbcType=VARCHAR},
+      </if>
+      <if test="logicalDel != null" >
+        #{logicalDel,jdbcType=BIT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=BIT},
+      </if>
+      <if test="transactionHash != null" >
+        #{transactionHash,jdbcType=VARCHAR},
+      </if>
+      <if test="dnsParseRecord != null" >
+        #{dnsParseRecord,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fuxi.entity.ExchangeDomainExample" resultType="java.lang.Integer" >
+    select count(*) from exchange_domain
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update exchange_domain
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.domain != null" >
+        domain = #{record.domain,jdbcType=VARCHAR},
+      </if>
+      <if test="record.domainHash != null" >
+        domain_hash = #{record.domainHash,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hashCode != null" >
+        hash_code = #{record.hashCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.owner != null" >
+        owner = #{record.owner,jdbcType=VARCHAR},
+      </if>
+      <if test="record.position != null" >
+        position = #{record.position,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mailAddress != null" >
+        mail_address = #{record.mailAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.maillNo != null" >
+        maill_no = #{record.maillNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contactPhone != null" >
+        contact_phone = #{record.contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.customerId != null" >
+        customer_id = #{record.customerId,jdbcType=BIGINT},
+      </if>
+      <if test="record.customerAddress != null" >
+        customer_address = #{record.customerAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contentItems != null" >
+        content_items = #{record.contentItems,jdbcType=INTEGER},
+      </if>
+      <if test="record.wiRegistrarSupport != null" >
+        wi_registrar_support = #{record.wiRegistrarSupport,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wiCreateTime != null" >
+        wi_create_time = #{record.wiCreateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wiExpirationTime != null" >
+        wi_expiration_time = #{record.wiExpirationTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wiServerIp != null" >
+        wi_server_ip = #{record.wiServerIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wiDns != null" >
+        wi_dns = #{record.wiDns,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logicalDel != null" >
+        logical_del = #{record.logicalDel,jdbcType=BIT},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=BIT},
+      </if>
+      <if test="record.transactionHash != null" >
+        transaction_hash = #{record.transactionHash,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dnsParseRecord != null" >
+        dns_parse_record = #{record.dnsParseRecord,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update exchange_domain
+    set id = #{record.id,jdbcType=BIGINT},
+      domain = #{record.domain,jdbcType=VARCHAR},
+      domain_hash = #{record.domainHash,jdbcType=VARCHAR},
+      hash_code = #{record.hashCode,jdbcType=VARCHAR},
+      owner = #{record.owner,jdbcType=VARCHAR},
+      position = #{record.position,jdbcType=VARCHAR},
+      mail_address = #{record.mailAddress,jdbcType=VARCHAR},
+      maill_no = #{record.maillNo,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      contact_phone = #{record.contactPhone,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      customer_id = #{record.customerId,jdbcType=BIGINT},
+      customer_address = #{record.customerAddress,jdbcType=VARCHAR},
+      content_items = #{record.contentItems,jdbcType=INTEGER},
+      wi_registrar_support = #{record.wiRegistrarSupport,jdbcType=VARCHAR},
+      wi_create_time = #{record.wiCreateTime,jdbcType=VARCHAR},
+      wi_expiration_time = #{record.wiExpirationTime,jdbcType=VARCHAR},
+      wi_server_ip = #{record.wiServerIp,jdbcType=VARCHAR},
+      wi_dns = #{record.wiDns,jdbcType=VARCHAR},
+      logical_del = #{record.logicalDel,jdbcType=BIT},
+      status = #{record.status,jdbcType=BIT},
+      transaction_hash = #{record.transactionHash,jdbcType=VARCHAR},
+      dns_parse_record = #{record.dnsParseRecord,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update exchange_domain
+    set id = #{record.id,jdbcType=BIGINT},
+      domain = #{record.domain,jdbcType=VARCHAR},
+      domain_hash = #{record.domainHash,jdbcType=VARCHAR},
+      hash_code = #{record.hashCode,jdbcType=VARCHAR},
+      owner = #{record.owner,jdbcType=VARCHAR},
+      position = #{record.position,jdbcType=VARCHAR},
+      mail_address = #{record.mailAddress,jdbcType=VARCHAR},
+      maill_no = #{record.maillNo,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      contact_phone = #{record.contactPhone,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      customer_id = #{record.customerId,jdbcType=BIGINT},
+      customer_address = #{record.customerAddress,jdbcType=VARCHAR},
+      content_items = #{record.contentItems,jdbcType=INTEGER},
+      wi_registrar_support = #{record.wiRegistrarSupport,jdbcType=VARCHAR},
+      wi_create_time = #{record.wiCreateTime,jdbcType=VARCHAR},
+      wi_expiration_time = #{record.wiExpirationTime,jdbcType=VARCHAR},
+      wi_server_ip = #{record.wiServerIp,jdbcType=VARCHAR},
+      wi_dns = #{record.wiDns,jdbcType=VARCHAR},
+      logical_del = #{record.logicalDel,jdbcType=BIT},
+      status = #{record.status,jdbcType=BIT},
+      transaction_hash = #{record.transactionHash,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fuxi.entity.ExchangeDomain" >
+    update exchange_domain
+    <set >
+      <if test="domain != null" >
+        domain = #{domain,jdbcType=VARCHAR},
+      </if>
+      <if test="domainHash != null" >
+        domain_hash = #{domainHash,jdbcType=VARCHAR},
+      </if>
+      <if test="hashCode != null" >
+        hash_code = #{hashCode,jdbcType=VARCHAR},
+      </if>
+      <if test="owner != null" >
+        owner = #{owner,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null" >
+        position = #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="mailAddress != null" >
+        mail_address = #{mailAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="maillNo != null" >
+        maill_no = #{maillNo,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPhone != null" >
+        contact_phone = #{contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customerId != null" >
+        customer_id = #{customerId,jdbcType=BIGINT},
+      </if>
+      <if test="customerAddress != null" >
+        customer_address = #{customerAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="contentItems != null" >
+        content_items = #{contentItems,jdbcType=INTEGER},
+      </if>
+      <if test="wiRegistrarSupport != null" >
+        wi_registrar_support = #{wiRegistrarSupport,jdbcType=VARCHAR},
+      </if>
+      <if test="wiCreateTime != null" >
+        wi_create_time = #{wiCreateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="wiExpirationTime != null" >
+        wi_expiration_time = #{wiExpirationTime,jdbcType=VARCHAR},
+      </if>
+      <if test="wiServerIp != null" >
+        wi_server_ip = #{wiServerIp,jdbcType=VARCHAR},
+      </if>
+      <if test="wiDns != null" >
+        wi_dns = #{wiDns,jdbcType=VARCHAR},
+      </if>
+      <if test="logicalDel != null" >
+        logical_del = #{logicalDel,jdbcType=BIT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=BIT},
+      </if>
+      <if test="transactionHash != null" >
+        transaction_hash = #{transactionHash,jdbcType=VARCHAR},
+      </if>
+      <if test="dnsParseRecord != null" >
+        dns_parse_record = #{dnsParseRecord,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.fuxi.entity.ExchangeDomain" >
+    update exchange_domain
+    set domain = #{domain,jdbcType=VARCHAR},
+      domain_hash = #{domainHash,jdbcType=VARCHAR},
+      hash_code = #{hashCode,jdbcType=VARCHAR},
+      owner = #{owner,jdbcType=VARCHAR},
+      position = #{position,jdbcType=VARCHAR},
+      mail_address = #{mailAddress,jdbcType=VARCHAR},
+      maill_no = #{maillNo,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      contact_phone = #{contactPhone,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      customer_id = #{customerId,jdbcType=BIGINT},
+      customer_address = #{customerAddress,jdbcType=VARCHAR},
+      content_items = #{contentItems,jdbcType=INTEGER},
+      wi_registrar_support = #{wiRegistrarSupport,jdbcType=VARCHAR},
+      wi_create_time = #{wiCreateTime,jdbcType=VARCHAR},
+      wi_expiration_time = #{wiExpirationTime,jdbcType=VARCHAR},
+      wi_server_ip = #{wiServerIp,jdbcType=VARCHAR},
+      wi_dns = #{wiDns,jdbcType=VARCHAR},
+      logical_del = #{logicalDel,jdbcType=BIT},
+      status = #{status,jdbcType=BIT},
+      transaction_hash = #{transactionHash,jdbcType=VARCHAR},
+      dns_parse_record = #{dnsParseRecord,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fuxi.entity.ExchangeDomain" >
+    update exchange_domain
+    set domain = #{domain,jdbcType=VARCHAR},
+      domain_hash = #{domainHash,jdbcType=VARCHAR},
+      hash_code = #{hashCode,jdbcType=VARCHAR},
+      owner = #{owner,jdbcType=VARCHAR},
+      position = #{position,jdbcType=VARCHAR},
+      mail_address = #{mailAddress,jdbcType=VARCHAR},
+      maill_no = #{maillNo,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      contact_phone = #{contactPhone,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      customer_id = #{customerId,jdbcType=BIGINT},
+      customer_address = #{customerAddress,jdbcType=VARCHAR},
+      content_items = #{contentItems,jdbcType=INTEGER},
+      wi_registrar_support = #{wiRegistrarSupport,jdbcType=VARCHAR},
+      wi_create_time = #{wiCreateTime,jdbcType=VARCHAR},
+      wi_expiration_time = #{wiExpirationTime,jdbcType=VARCHAR},
+      wi_server_ip = #{wiServerIp,jdbcType=VARCHAR},
+      wi_dns = #{wiDns,jdbcType=VARCHAR},
+      logical_del = #{logicalDel,jdbcType=BIT},
+      status = #{status,jdbcType=BIT},
+      transaction_hash = #{transactionHash,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectDomainSimpleList"  resultType="java.util.HashMap">
+    SELECT
+	ed.id AS id,
+	ed.domain AS domain,
+	ed.domain_hash AS domainHash,
+	ed.content_items AS contentItems,
+	c.user_name AS  username,
+	c.login_name AS loginName,
+	IF(IFNULL(c.mobile,'')='','',CONCAT(LEFT(c.mobile,3),'****',RIGHT(c.mobile,4))) AS mobile,
+	DATE_FORMAT(ed.create_time, '%Y-%c-%d %h:%i:%s' ) AS time,
+	ed.wi_registrar_support AS wiRegistrarSupport,
+	ed.wi_create_time AS wiCreateTime,
+	ed.wi_expiration_time AS wiExpirationTime,
+	ed.wi_server_ip AS  wiServerIp,
+	ed.wi_dns AS wiDns
+FROM
+	exchange_domain ed
+	LEFT JOIN customer c ON c.id = ed.customer_id
+WHERE
+	ed.domain LIKE  CONCAT('%',#{domain,jdbcType=VARCHAR},'%')
+	AND  ed.logical_del=#{logicalDel,jdbcType=BIT}
+	AND ed.status=#{status,jdbcType=BIT}
+  </select>
+
+
+  <resultMap id="DomainAndPublisherResMap" type="com.fuxi.pojo.ExchangeDomainVo">
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="domain" property="domain" jdbcType="VARCHAR" />
+    <result column="domain_hash" property="domainHash" jdbcType="VARCHAR" />
+    <result column="hash_code" property="hashCode" jdbcType="VARCHAR" />
+    <result column="owner" property="owner" jdbcType="VARCHAR" />
+    <result column="customer_id" property="customerId" jdbcType="BIGINT" />
+    <result column="position" property="position" jdbcType="VARCHAR" />
+    <result column="mail_address" property="mailAddress" jdbcType="VARCHAR" />
+    <result column="maill_no" property="maillNo" jdbcType="VARCHAR" />
+    <result column="contact_phone" property="contactPhone" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="content_items" property="contentItems" jdbcType="INTEGER" />
+    <result column="wi_registrar_support" property="wiRegistrarSupport" jdbcType="VARCHAR" />
+    <result column="wi_create_time" property="wiCreateTime" jdbcType="VARCHAR" />
+    <result column="wi_expiration_time" property="wiExpirationTime" jdbcType="VARCHAR" />
+    <result column="wi_server_ip" property="wiServerIp" jdbcType="VARCHAR" />
+    <result column="wi_dns" property="wiDns" jdbcType="VARCHAR" />
+    <result column="logical_del" property="logicalDel" jdbcType="BIT" />
+    <result column="status" property="status" jdbcType="BIT" />
+    <result column="transaction_hash" property="transactionHash" jdbcType="VARCHAR" />
+    <association property="publisher" select="com.fuxi.dao.CustomerMapper.selectByPrimaryKey" column="customer_id"></association>
+  </resultMap>
+
+  <select id="findExchangeDomainAndPublisherById" parameterType="java.lang.Long" resultMap="DomainAndPublisherResMap">
+      SELECT  * FROM  exchange_domain WHERE  id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectWhoIsById" resultType="java.util.Map" parameterType="java.lang.Long">
+      SELECT
+	ed.domain AS domain,
+	ed.wi_registrar_support AS wiRegistrarSupport,
+	ed.wi_create_time AS wiCreateTime,
+	ed.wi_expiration_time AS wiExpirationTime,
+	ed.wi_server_ip AS wiServerIp,
+	ed.wi_dns AS wiDns,
+	IF(IFNULL(c.mobile,'')='','',CONCAT(LEFT(c.mobile,3),'****',RIGHT(c.mobile,4))) AS mobile
+FROM
+	exchange_domain ed
+	LEFT JOIN customer c ON c.id = ed.customer_id
+WHERE
+	ed.id =#{id,jdbcType=BIGINT}
+  </select>
+</mapper>

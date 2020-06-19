@@ -1,0 +1,8 @@
+exchange-server/target/
+exchange-web/target/classes/com.fuxi/controller/user/UserController.class
+exchange-web/target/classes/com.fuxi/controller/base/BaseController.class
+exchange-common/target/
+.idea/
+exchange-interface/target/
+exchange-service/target/
+*.iml
